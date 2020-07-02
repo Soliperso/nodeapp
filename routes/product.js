@@ -35,7 +35,7 @@ router.get("/products/new", (req, res) => {
 
 // SHOW - shows more info about one product
 router.get("/products/:id", (req, res) => {
-  Product.findById(req.params.id, (err, product) => {
+  Product.findById(req.params.id).populate('comments').exec((err, product) => {
     if (err) {
       console.log(err) 
     } else {

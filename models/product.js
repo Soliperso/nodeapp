@@ -4,7 +4,14 @@ const productSchema = new mongoose.Schema({
   name: String, 
   image: String, 
   description: String, 
-  createdAt: { type: Date, default: Date.now }
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Comment'
+    }
+  ],
+  createdAt: { type: Date, default: Date.now },
+
 });
 
 module.exports = mongoose.model('Product', productSchema);

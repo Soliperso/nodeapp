@@ -6,6 +6,15 @@
     <img src="<%= product.image %>" alt="<%= product.name %>">
     <p><%= product.description %></p>
 
+    
+      <% product.comments.forEach(comment => { %>
+        <div class="author-box">
+          <p><strong><%= comment.author %></strong></p>
+          <p><%= comment.text %></p>
+        </div>
+      <% }) %>
+    
+
     <div class="btn">
       <button><a href="/products/<%= product._id %>/edit">Edit</a></button>
       <form action="/products/<%= product._id %>?_method=DELETE" method="POST">

@@ -7,7 +7,10 @@ const methodOverride = require('method-override')
 const app = express();
 
 // Requiring routes 
-const productsRoutes = require('./routes/product');
+const productRoutes = require('./routes/product');
+const commentRoutes = require('./routes/comment');
+
+
 
 // App Config
 app.set("view engine", "ejs");
@@ -17,7 +20,9 @@ app.use(methodOverride('_method'));
 
 // Connect mongoose to DB
 mongoose.connect("mongodb://localhost/eShop", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: true,
+  useUnifiedTopology: true 
 });
 
 // Make sure mongoose connected successfully to DB
@@ -31,8 +36,10 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-app.use(productsRoutes);
+app.use(productRoutes);
+app.use(commentRoutes)
+
 
 // listening to the server on port 3000
 const port = process.env.PORT || 3000;
-app.listen(port, () => `Server running on port port 🔥`);
+app.listen(port, () => console.log(`Server running on port port 🔥`));
