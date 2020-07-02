@@ -1,0 +1,12 @@
+<%- include('../partials/header') %> 
+
+  <div class="form-container">
+    <h1>Edit <%= product.name %></h1>
+    <hr>
+    <form action="/products/<%= product._id %>?_method=PUT" method="POST">
+      <input type="name" name="name" value="<%= product.name %>">
+      <input type="text" name="image" value="<%= product.image %>">
+      <input type="text" name="description" value="<%= product.description %>">
+      <button>Update!</button>
+    </form>
+  </div>
