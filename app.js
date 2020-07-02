@@ -60,6 +60,24 @@ app.use(productRoutes);
 app.use(commentRoutes)
 
 
+// Auth routes
+app.get("/register", (req, res) => {
+  res.render('register')
+});
+
+app.post("/register", (req, res) => {
+  const newUser = new User({ username: req.body.username })
+  User.register(newUser, req.body.password, (err, user) => {
+    if (err) {
+      console.log(err) 
+      return res.render('register')
+    }
+    passport.authenticate('local')(req, res, () => [
+      res.redirect('/products')
+    ])
+  })
+});
+
 // listening to the server on port 3000
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port port 🔥`));
