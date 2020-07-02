@@ -1,4 +1,5 @@
 // Requiring modules
+require('dotenv').config()
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -34,6 +35,20 @@ mongoose.connect("mongodb://localhost/eShop", {
 let db = mongoose.connection;
 db.on("err", console.error.bind(console, "Connection error"));
 db.once("open", () => console.log("Successfully connected to DB 💾"));
+
+// Passport Configuration 
+app.use(require('express-session')({
+  secret: process.env.USER_PASS, 
+  resave: false, 
+  saveUninitialized: false
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
 
 // Root Route
 app.get("/", (req, res) => {
