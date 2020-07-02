@@ -5,6 +5,9 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+// Requiring routes 
+const productsRoutes = require('./routes/product');
+
 // App Config
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,6 +27,9 @@ db.once("open", () => console.log("Successfully connected to DB 💾"));
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+
+// Routes
+app.use(productsRoutes);
 
 // listening to the server on port 3000
 const port = process.env.PORT || 3000;
