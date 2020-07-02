@@ -12,4 +12,15 @@ router.get("/products", (req, res) => {
   })
 });
 
+router.get("/products/:id", (req, res) => {
+  Product.findById(req.params.id, (err, product) => {
+    if (err) {
+      console.log(err) 
+    } else {
+      res.render('products/show', { product })
+    }
+  })
+});
+
+
 module.exports = router;
