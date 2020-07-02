@@ -6,9 +6,13 @@
         <h1><%= product.name %></h1>
         <hr>
         <img src="<%= product.image %>" alt="<%= product.name %>">
-        <p><%= product.description.substring(0, 200) %> ...</p>
-        
-        <a href="/products/<%= product._id %>">More Info</a>
+        <p><%= product.description.substring(0, 195) %> ...</p>
+
+        <hr>
+        <div class="card-bottom">
+          <a><p id="date"><em><%= moment(product.createdAt).fromNow() %></em></p></a>
+          <a href="/products/<%= product._id %>">More Info</a>
+        </div>
       </div>
     <% }) %>
   </div>

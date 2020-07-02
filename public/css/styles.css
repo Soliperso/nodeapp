@@ -17,7 +17,11 @@ body {
 
 nav {
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background: linear-gradient(
+    to top,
+   rgb(247, 246, 246), 
+   rgb(179, 179, 179), 
+   rgb(154, 154, 168));
   border-bottom: 1px solid #ccc;
   position: fixed;
   top: 0;
@@ -60,8 +64,9 @@ p {
 }
 
 hr {
-  border-width: .4px;
-  border-color: #ccc;
+  height: 1px;
+  border-color: #fafafa;
+  border-radius: 20px;
 }
 
 a {
@@ -132,6 +137,14 @@ a {
   border-radius: 3px;
 }
 
+#comment-author {
+  font-size: 0.7em;
+  letter-spacing: 1px;
+  text-shadow: .5px .5px  #000000;
+  margin-bottom: 0; 
+  padding-bottom: 0;
+}
+
 .form-container {
   max-width: 600px;
   margin: auto;
@@ -167,6 +180,8 @@ a {
   border-radius: 3px;
 }
 
+
+/*********** Buttons Styles **************/
 .btn {
   display: flex; 
   margin-bottom: 20px;
@@ -174,9 +189,53 @@ a {
 
 .btn button {
   margin: 3px 3px 3px 0; 
-  border-radius: 3px;
-  padding: 2px 5px;
+  font-size: 0.8em;
+  padding: 2px 20px;
   border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  position: relative;
+  background: linear-gradient(to bottom right, rgb(247, 246, 246), rgb(154, 154, 168));
+  color: #777;
+  z-index: 10;
+}
+
+.btn button a {
+  color: #777;
+  z-index: 20;
+}
+
+.btn button a::before {
+  content: '';  
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  border-radius: 10px;;
+  background-color: #fff;
+  
+  transition: .5s;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.btn button a:hover::before {
+  transform: scaleX(1);
+}
+
+
+#date {
+  font-size: 0.85em;
+  font-variant: small-caps;
+}
+
+.card-bottom { 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 10px;
 }
 
 footer {

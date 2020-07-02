@@ -6,13 +6,15 @@
     <img src="<%= product.image %>" alt="<%= product.name %>">
     <p><%= product.description %></p>
 
-    
-      <% product.comments.forEach(comment => { %>
-        <div class="author-box">
-          <p><strong><%= comment.author %></strong></p>
-          <p><%= comment.text %></p>
-        </div>
-      <% }) %>
+    <!-- Comments -->
+    <% product.comments.forEach(comment => { %>
+      <div class="author-box">
+        <p id="comment-author"><%= comment.author.toUpperCase() %></p>
+        <hr>
+        <p><%= comment.text %></p>
+        <a><p id="date"><em><%= moment(comment.createdAt).fromNow() %></em></p></a>
+      </div>
+    <% }) %>
     
 
     <div class="btn">

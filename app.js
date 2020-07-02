@@ -2,6 +2,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+const User = require('./models/user');
 const methodOverride = require('method-override')
 
 const app = express();
@@ -17,6 +20,8 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 app.use(methodOverride('_method'));
+
+app.locals.moment = require('moment');
 
 // Connect mongoose to DB
 mongoose.connect("mongodb://localhost/eShop", {
