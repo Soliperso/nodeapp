@@ -50,19 +50,13 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 
-// Root Route
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
 // Routes
 app.use(productRoutes);
 app.use(commentRoutes)
 
 
 // Auth routes
-
-// Register 
+// Register route
 app.get("/register", (req, res) => {
   res.render('register')
 });
@@ -80,7 +74,7 @@ app.post("/register", (req, res) => {
   })
 });
 
-// Login 
+// Login route
 app.get("/login", (req, res) => {
   res.render('login')
 });
@@ -89,8 +83,13 @@ app.post("/login", passport.authenticate('local',
   {
     successRedirect: '/products', 
     failureRedirect: '/login'
-}), (req, res) => {
-  
+}), (req, res) => {  
+});
+
+// Logout Route 
+app.get("/logout", (req, res) => {
+  req.logout()
+  res.redirect('/products')
 });
 
 // listening to the server on port 3000
