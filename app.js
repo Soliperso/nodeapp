@@ -61,6 +61,8 @@ app.use(commentRoutes)
 
 
 // Auth routes
+
+// Register 
 app.get("/register", (req, res) => {
   res.render('register')
 });
@@ -76,6 +78,19 @@ app.post("/register", (req, res) => {
       res.redirect('/products')
     ])
   })
+});
+
+// Login 
+app.get("/login", (req, res) => {
+  res.render('login')
+});
+
+app.post("/login", passport.authenticate('local', 
+  {
+    successRedirect: '/products', 
+    failureRedirect: '/login'
+}), (req, res) => {
+  
 });
 
 // listening to the server on port 3000
