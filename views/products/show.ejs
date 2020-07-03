@@ -6,6 +6,8 @@
     <img src="<%= product.image %>" alt="<%= product.name %>">
     <p><%= product.description %></p>
 
+    <button><a style='color: red;' href="/products/<%= product._id %>/comments/new">Add a Comment</a></button>
+
     <!-- Comments -->
     <% product.comments.forEach(comment => { %>
       <div class="author-box">

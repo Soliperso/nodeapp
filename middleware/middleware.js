@@ -1,3 +1,4 @@
+
 const Comment = require("../models/comment");
 const Product = require("../models/product");
 
@@ -6,5 +7,6 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
+    res.redirect("/login");
   },
 };

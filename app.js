@@ -11,8 +11,9 @@ const methodOverride = require('method-override')
 const app = express();
 
 // Requiring routes 
-const productRoutes = require('./routes/product');
-const commentRoutes = require('./routes/comment');
+const productsRoutes = require('./routes/products');
+const commentsRoutes = require('./routes/comments');
+const indexRoutes = require('./routes/index')
 
 
 
@@ -56,46 +57,10 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.use(productRoutes);
-app.use(commentRoutes)
+app.use(productsRoutes);
+app.use(commentsRoutes)
+app.use(indexRoutes)
 
-
-// Auth routes
-// Register route
-app.get("/register", (req, res) => {
-  res.render('register')
-});
-
-app.post("/register", (req, res) => {
-  const newUser = new User({ username: req.body.username })
-  User.register(newUser, req.body.password, (err, user) => {
-    if (err) {
-      console.log(err) 
-      return res.render('register')
-    }
-    passport.authenticate('local')(req, res, () => [
-      res.redirect('/products')
-    ])
-  })
-});
-
-// Login route
-app.get("/login", (req, res) => {
-  res.render('login')
-});
-
-app.post("/login", passport.authenticate('local', 
-  {
-    successRedirect: '/products', 
-    failureRedirect: '/login'
-}), (req, res) => {  
-});
-
-// Logout Route 
-app.get("/logout", (req, res) => {
-  req.logout()
-  res.redirect('/products')
-});
 
 // listening to the server on port 3000
 const port = process.env.PORT || 3000;
