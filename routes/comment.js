@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Comment = require("../models/comment");
 const Product = require("../models/product");
+const { isLoggedIn } = require("../middleware/middleware");
 
-router.get("/products/:id/comments/new", (req, res) => {
+router.get("/products/:id/comments/new", isLoggedIn, (req, res) => {
   Product.findById(req.params.id, (err, product) => {
     if (err) {
       console.log(err);
@@ -13,7 +14,7 @@ router.get("/products/:id/comments/new", (req, res) => {
   });
 });
 
-router.post("/products/:id/comments", (req, res) => {
+router.post("/products/:id/comments", isLoggedIn, (req, res) => {
   Product.findById(req.params.id, (err, product) => {
     if (err) {
       console.log(err);

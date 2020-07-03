@@ -14,9 +14,13 @@
         <li><a href="/products">Ahmed Chebli</a></li>
       </div>
       <div class="menu">
-        <li><a href="/login">Login</a></li>
-        <li><a href="/register">Register</a></li>
-        <li><a href="/logout">Logout</a></li>
+        <% if (!currentUser) { %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        <% } else { %>
+          <li><a id='username' href="#">You are logged in as: <%= currentUser.username %></a></li>
+          <li><a href="/logout">Logout</a></li>
+        <% } %>
       </div>
     </ul>
   </nav>
