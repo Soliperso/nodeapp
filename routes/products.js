@@ -1,84 +1,89 @@
 const express = require("express");
-const router = express.Router(); 
-const Product = require('../models/product')
+const router = express.Router();
+const Product = require("../models/product");
+const { isLoggedIn } = require("../middleware/middleware");
 
 //INDEX - show all products
 router.get("/products", (req, res) => {
   Product.find({}, (err, products) => {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
-      res.render('products/index', { products })
+      res.render("products/index", { products });
     }
-  })
+  });
 });
 
 //CREATE - add new product to DB
-router.post("/products", (req, res) => {
-  const { name, image, description } = req.body; 
-  const newProduct = { name, image, description }; 
+router.post("/products", isLoggedIn, (req, res) => {
+  const author = { 
+    id: req.user._id, 
+    username: req.user.username
+  }
+  const { name, image, description } = req.body;
+  const newProduct = { name, image, description, author };
 
-  Product.create(newProduct, err => {
+  Product.create(newProduct, (err) => {
     if (err) {
-      console.log(err) 
-    }else {
-      res.redirect('/products')
+      console.log(err);
+    } else {
+      res.redirect("/products");
     }
-  })
-})
-
-//NEW - show form to create new product
-router.get("/products/new", (req, res) => {
-  res.render('products/new')
+  });
 });
 
+//NEW - show form to create new product
+router.get("/products/new", isLoggedIn, (req, res) => {
+  res.render("products/new");
+});
 
 // SHOW - shows more info about one product
 router.get("/products/:id", (req, res) => {
-  Product.findById(req.params.id).populate('comments').exec((err, product) => {
-    if (err) {
-      console.log(err) 
-    } else {
-      res.render('products/show', { product })
-    }
-  })
+  Product.findById(req.params.id)
+    .populate("comments")
+    .exec((err, product) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("products/show", { product });
+      }
+    });
 });
 
 // EDIT - shows edit form for a product
 router.get("/products/:id/edit", (req, res) => {
   Product.findById(req.params.id, (err, product) => {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
-      res.render('products/edit', { product })
+      res.render("products/edit", { product });
     }
-  })
+  });
 });
-
 
 // PUT - updates product in the database
 router.put("/products/:id", (req, res) => {
-  const { name, image, description } = req.body; 
-  const productToUpdate = { name, image, description }; 
+  const { name, image, description } = req.body;
+  const productToUpdate = { name, image, description };
 
   Product.findByIdAndUpdate(req.params.id, productToUpdate, (err, product) => {
     if (err) {
-      res.redirect('/products')
+      res.redirect("/products");
     } else {
-      res.redirect('/products/' + product._id)
+      res.redirect("/products/" + product._id);
     }
-  })
+  });
 });
 
 // DELETE - removes product from the database
 router.delete("/products/:id", (req, res) => {
-  Product.findByIdAndDelete(req.params.id, err => {
+  Product.findByIdAndDelete(req.params.id, (err) => {
     if (err) {
-      res.redirect('/products')
+      res.redirect("/products");
     } else {
-      res.redirect('/products')
+      res.redirect("/products");
     }
-  })
+  });
 });
 
 module.exports = router;

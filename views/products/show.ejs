@@ -1,12 +1,23 @@
 <%- include('../partials/header') %> 
 
   <div class="show-container">
-    <h1><%= product.name %></h1>
-    <hr>
-    <img src="<%= product.image %>" alt="<%= product.name %>">
-    <p><%= product.description %></p>
+    <div class="post">
+      <h1><%= product.name %></h1>
+      <hr>
+      <img src="<%= product.image %>" alt="<%= product.name %>">
+      <p>
+        <em>Submit by:  
+          <a href="#">
+            <strong><%= product.author.username.toUpperCase() %></strong>
+          </a>
+        </em>
+      </p>
+      <p><%= product.description %></p>
 
-    <button><a style='color: green;' href="/products/<%= product._id %>/comments/new">Add a Comment</a></button>
+      <button>
+        <a style='color: green;' href="/products/<%= product._id %>/comments/new">Add a Comment</a>
+      </button>
+    </div>
 
     <!-- Comments -->
     <% product.comments.forEach(comment => { %>
@@ -15,17 +26,16 @@
         <hr>
         <p><%= comment.text %></p>
         <a><p id="date"><em><%= moment(comment.createdAt).fromNow() %></em>.</p></a>
+
+        <div class="btn">
+          <button><a href="/products/<%= product._id %>/edit">Edit</a></button>
+          <form action="/products/<%= product._id %>?_method=DELETE" method="POST">
+            <button>Delete</button>
+          </form>
+        </div>
       </div>
     <% }) %>
-    
-
-    <div class="btn">
-      <button><a href="/products/<%= product._id %>/edit">Edit</a></button>
-      <form action="/products/<%= product._id %>?_method=DELETE" method="POST">
-        <button>Delete</button>
-      </form>
-    </div>
-
+  
     <a href="/products"><< Go Back</a>
   </div>
 
