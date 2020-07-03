@@ -8,11 +8,21 @@
       <p>
         <em>Submit by:  
           <a href="#">
-            <strong><%= product.author.username.toUpperCase() %></strong>
+            <strong><%= product.author.username %></strong>
           </a>
         </em>
       </p>
       <p><%= product.description %></p>
+
+      <% if (currentUser && product.author.id.equals(currentUser._id)) { %>
+        <button id="edit-button">
+          <a href="/products/<%= product._id %>/edit">Edit</a>
+        </button>
+  
+        <form action="/products/<%= product._id %>?_method=DELETE" method="POST">
+          <button id="delete-button">Delete</button>
+        </form>
+      <% } %>
 
       <button>
         <a style='color: green;' href="/products/<%= product._id %>/comments/new">Add a Comment</a>

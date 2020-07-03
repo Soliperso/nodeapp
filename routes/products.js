@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Product = require("../models/product");
 const { isLoggedIn } = require("../middleware/middleware");
+const { checkUserProduct } = require("../middleware/middleware");
 
 //INDEX - show all products
 router.get("/products", (req, res) => {
@@ -51,18 +52,14 @@ router.get("/products/:id", (req, res) => {
 });
 
 // EDIT - shows edit form for a product
-router.get("/products/:id/edit", (req, res) => {
-  Product.findById(req.params.id, (err, product) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("products/edit", { product });
-    }
-  });
+router.get("/products/:id/edit", checkUserProduct, (req, res) => {
+    Product.findById(req.params.id, (err, product) => {
+      res.render('products/edit', { product })
+    });
 });
 
 // PUT - updates product in the database
-router.put("/products/:id", (req, res) => {
+router.put("/products/:id", checkUserProduct, (req, res) => {
   const { name, image, description } = req.body;
   const productToUpdate = { name, image, description };
 
@@ -76,7 +73,7 @@ router.put("/products/:id", (req, res) => {
 });
 
 // DELETE - removes product from the database
-router.delete("/products/:id", (req, res) => {
+router.delete("/products/:id", checkUserProduct, (req, res) => {
   Product.findByIdAndDelete(req.params.id, (err) => {
     if (err) {
       res.redirect("/products");
@@ -85,5 +82,6 @@ router.delete("/products/:id", (req, res) => {
     }
   });
 });
+
 
 module.exports = router;

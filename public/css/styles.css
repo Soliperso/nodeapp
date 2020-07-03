@@ -157,13 +157,34 @@ a {
 
 .post {
   position: relative;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
+}
+
+#edit-button {
+  position: absolute;
+  left: 0;
+  bottom: -50px;
+  padding: 5px 20px; 
+  color: orange;
+}
+
+#edit-button a {
+  color: orange;
+  border-radius: 3px;
+}
+
+#delete-button {
+  position: absolute;
+  left: 75px;
+  bottom: -50px;
+  padding: 5px 20px; 
+  color: red;
 }
 
 .post button {
   position: absolute;
   right: 0;
-  bottom: -25px;
+  bottom: -50px;
   padding: 5px;
 }
 
