@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const User = require("../models/user");
 
 // Register route
 router.get("/register", (req, res) => {
@@ -14,7 +15,9 @@ router.post("/register", (req, res) => {
       console.log(err);
       return res.render("register");
     }
-    passport.authenticate("local")(req, res, () => [res.redirect("/products")]);
+    passport.authenticate("local")(req, res, function () {
+      res.redirect("/products");
+    });
   });
 });
 

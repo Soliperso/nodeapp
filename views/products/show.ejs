@@ -24,8 +24,8 @@
         </form>
       <% } %>
 
-      <button>
-        <a style='color: green;' href="/products/<%= product._id %>/comments/new">Add a Comment</a>
+      <button style="padding: 2px 10px;">
+        <a style="color: green;" href="/products/<%= product._id %>/comments/new">Add a Comment</a>
       </button>
     </div>
 
@@ -38,8 +38,12 @@
         <a><p id="date"><em><%= moment(comment.createdAt).fromNow() %></em>.</p></a>
 
         <div class="btn">
-          <button><a href="/products/<%= product._id %>/edit">Edit</a></button>
-          <form action="/products/<%= product._id %>?_method=DELETE" method="POST">
+          <button>
+            <a href="/products/<%= product._id %>/comments/<%= comment._id %>/edit">
+              Edit
+            </a>
+          </button>
+          <form action="/products/<%= product._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
             <button>Delete</button>
           </form>
         </div>

@@ -39,6 +39,7 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 10;
 }
 
 nav .brand {
@@ -164,7 +165,7 @@ a {
   position: absolute;
   left: 0;
   bottom: -50px;
-  padding: 5px 20px; 
+  padding: 2px 20px; 
   color: orange;
 }
 
@@ -177,7 +178,7 @@ a {
   position: absolute;
   left: 75px;
   bottom: -50px;
-  padding: 5px 20px; 
+  padding: 2px 20px; 
   color: red;
 }
 

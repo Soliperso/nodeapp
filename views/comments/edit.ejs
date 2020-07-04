@@ -1,0 +1,10 @@
+<%- include('../partials/header') %> 
+
+  <div class="form-container">
+    <h1>Edit Comment</h1>
+    <hr>
+    <form action="/products/<%= product_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+      <input type="name" name="comment[text]" value="<%= comment.text %>">
+      <button>Update!</button>
+    </form>
+  </div>
