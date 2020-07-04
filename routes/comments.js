@@ -3,6 +3,8 @@ const router = express.Router({ mergeParams: true });
 const Comment = require("../models/comment");
 const Product = require("../models/product");
 const { isLoggedIn } = require("../middleware/middleware");
+const { checkUserComment } = require("../middleware/middleware");
+
 const product = require("../models/product");
 
 // NEW - render the create a new comment form
@@ -46,7 +48,7 @@ router.post("/products/:id/comments", isLoggedIn, (req, res) => {
 });
 
 // Edit comment
-router.get("/products/:id/comments/:comment_id/edit", (req, res) => {
+router.get("/products/:id/comments/:comment_id/edit", checkUserComment, (req, res) => {
   Comment.findById(req.params.comment_id, (err, comment) => {
     if (err) {
       res.redirect("back");
@@ -57,7 +59,7 @@ router.get("/products/:id/comments/:comment_id/edit", (req, res) => {
 });
 
 //  Comment update
-router.put("/products/:id/comments/:comment_id", (req, res) => {
+router.put("/products/:id/comments/:comment_id", checkUserComment, (req, res) => {
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err) => {
     if (err) {
       res.redirect("back");
@@ -68,7 +70,7 @@ router.put("/products/:id/comments/:comment_id", (req, res) => {
 });
 
 // Delete comment
-router.delete("/products/:id/comments/:comment_id", (req, res) => [
+router.delete("/products/:id/comments/:comment_id", checkUserComment, (req, res) => [
   Comment.findByIdAndDelete(req.params.comment_id, (err) => {
     if (err) {
       res.redirect("back");

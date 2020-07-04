@@ -38,6 +38,7 @@
         <a><p id="date"><em><%= moment(comment.createdAt).fromNow() %></em>.</p></a>
 
         <div class="btn">
+          <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
           <button>
             <a href="/products/<%= product._id %>/comments/<%= comment._id %>/edit">
               Edit
@@ -46,6 +47,7 @@
           <form action="/products/<%= product._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
             <button>Delete</button>
           </form>
+          <% } %>
         </div>
       </div>
     <% }) %>
