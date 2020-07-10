@@ -6,21 +6,38 @@ const { checkUserProduct } = require("../middleware/middleware");
 
 //INDEX - show all products
 router.get("/products", (req, res) => {
-  Product.find({}, (err, products) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("products/index", { products });
-    }
-  });
+  let noMatch;
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+    Product.find({ name: regex }, (err, products) => {
+      if (err) {
+        console.log(err);
+      } else {
+        
+        if (products.length < 1) {
+          noMatch = 'No products match this search'
+        }
+        res.render("products/index", { products, noMatch });
+      }
+      
+    });
+  } else {
+    Product.find({}, (err, products) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("products/index", { products, noMatch });
+      }
+    });
+  }
 });
 
 //CREATE - add new product to DB
 router.post("/products", isLoggedIn, (req, res) => {
-  const author = { 
-    id: req.user._id, 
-    username: req.user.username
-  }
+  const author = {
+    id: req.user._id,
+    username: req.user.username,
+  };
   const { name, image, description } = req.body;
   const newProduct = { name, image, description, author };
 
@@ -53,9 +70,9 @@ router.get("/products/:id", (req, res) => {
 
 // EDIT - shows edit form for a product
 router.get("/products/:id/edit", checkUserProduct, (req, res) => {
-    Product.findById(req.params.id, (err, product) => {
-      res.render('products/edit', { product })
-    });
+  Product.findById(req.params.id, (err, product) => {
+    res.render("products/edit", { product });
+  });
 });
 
 // PUT - updates product in the database
@@ -83,5 +100,8 @@ router.delete("/products/:id", checkUserProduct, (req, res) => {
   });
 });
 
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;

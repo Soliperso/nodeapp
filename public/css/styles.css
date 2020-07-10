@@ -23,8 +23,23 @@ header {
      url("https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60") no-repeat; 
   background-size: cover;
   height: 250px;
+  position: relative;
 }
 
+#searchForm {
+  position: absolute;
+  bottom: 9%;
+  right: 3%;
+}
+
+#search_field,
+#seach_button {
+border-radius: 14px;
+border: none;
+color: green;
+outline: none;
+padding: 3px 10px;
+}
 
 /**************** NAVIGATION BAR **************/
 nav {
@@ -49,7 +64,7 @@ nav .brand {
 
 ul .menu {
   display: flex;
-  margin-right: 15px;
+  margin-right: -7px;
   font-size: .4rem;
 }
 
@@ -207,10 +222,11 @@ a {
 
 /**************** FORMS STYLES **************/
 .form-container {
+  width: 99%;
   max-width: 600px;
   margin: auto;
   border: 1px solid #ccc;
-  padding: 50px;
+  padding: 20px;
   border-radius: 5px;
   position: absolute;
   top: 50%;
@@ -230,9 +246,17 @@ a {
 .form-container input {
   width: 100%;
   padding: 5px 10px;
-  border-radius: 20px;
+  border-radius: 7px;
+  border-width: .1px;
   margin-bottom: 7px;
   outline: none;
+}
+
+textarea {
+  border-radius: 7px;
+  width: 100%;
+  outline: none;
+  resize: none;
 }
 
 
@@ -309,6 +333,7 @@ a {
   color: #999999;
   text-align: center;
   text-shadow: 2px 2px 3px #ccc;
+  font-weight: 300;
 }
 
 .user_profile_info {
@@ -331,6 +356,16 @@ a {
 h5 {
   margin-bottom: 0;
   text-decoration: underline;
+}
+
+#create_button {
+  position: fixed;
+  top: 30%;
+  left: 1.4%;
+}
+
+#create_button a {
+  color: green;
 }
 
 /**************** FOOTER **************/
@@ -363,5 +398,53 @@ footer {
   .card {
     flex: 100%;
     max-width: 100%;
+  }
+}
+
+@media (max-width: 375px) {
+  .card:first-of-type {
+    margin-top: 60px;
+    flex: 100%;
+    max-width: 100%;
+  }
+  .profile #username {
+    font-size: 1em;
+    letter-spacing: 1px;
+    text-shadow: none;
+    text-align: center;
+  }
+  #avatar {
+    text-align: center;
+    margin: 40px auto 10px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .user_profile_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #username {
+    display: none;
+  }
+
+  .show-container img {
+    height: 212px;
+  }
+
+  ul .menu {
+    margin-right: -10px;
+  }
+
+  header {
+    display: none;
+    position: relative;
+  }
+ 
+  .form-container {
+    width: 98%;
+    margin-top: -200px;
+    padding: 10px;
   }
 }

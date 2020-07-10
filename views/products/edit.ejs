@@ -1,12 +1,13 @@
 <%- include('../partials/header') %> 
 
   <div class="form-container">
-    <h1>Edit <%= product.name %></h1>
+    <h1>Edit <strong><%= product.name %></strong></h1>
     <hr>
     <form action="/products/<%= product._id %>?_method=PUT" method="POST">
       <input type="name" name="name" value="<%= product.name %>">
       <input type="text" name="image" value="<%= product.image %>">
-      <input type="text" name="description" value="<%= product.description %>">
+      <!-- <input type="text" name="description" value="<%= product.description %>"> -->
+      <textarea name="description" id="" cols="30" rows="10"><%= product.description %></textarea>
       <button>Update!</button>
     </form>
   </div>

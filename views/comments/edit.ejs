@@ -4,7 +4,8 @@
     <h1>Edit Comment</h1>
     <hr>
     <form action="/products/<%= product_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
-      <input type="name" name="comment[text]" value="<%= comment.text %>">
+      <!-- <input type="name" name="comment[text]" value="<%= comment.text %>">  -->
+      <textarea name="comment[text]" id="" cols="30" rows="10"><%= comment.text %></textarea>
       <button>Update!</button>
     </form>
   </div>

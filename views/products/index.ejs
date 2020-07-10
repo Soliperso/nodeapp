@@ -1,8 +1,22 @@
 <%- include('../partials/header') %>
 
-  <header></header>
+  <header>
+    <button id="create_button">
+      <a href="/products/new">Create a New Product</a>
+    </button>
+    <p>
+      <form id="searchForm" action="/products" method="GET">
+        <input id="search_field" type="text" name="search" placeholder="Search for a product ...">
+        <input id="seach_button" type="submit" value="Search">
+      </form>
+    </p>
+  </header>
+  
   
   <div class="card-container">
+    <% if (noMatch !== undefined) { %>
+      <h3><%= noMatch %></h3>
+    <% } %>
     <% products.forEach(product => { %>
       <div class="card">
         <h1><%= product.name %></h1>
