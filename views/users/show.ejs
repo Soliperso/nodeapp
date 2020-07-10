@@ -1,0 +1,33 @@
+<%- include('../partials/header') %> 
+
+<div class="show-container profile">
+  <h1 id="username"><%= user.firstName %> <%= user.lastName %></h1>
+  <hr>
+  
+  <!-- <p><a href="mailto:<%= user.email %>"><%= user.email %></p> -->
+
+  <div>
+    <div class="user_profile_info">
+  
+    <img id="avatar" src="<%= user.avatar %>" alt="User Profile">
+  
+  <div class="contact_info">
+    <h5>Contact Info</h5>
+    <p>
+      <%= user.firstName %> <%= user.lastName %><br>
+      email: <%= user.email %> <br>
+      Cell: 
+    </p>
+
+    <h5><%= user.username %> Products</h5>
+      <ol>
+        <% products.forEach(product => { %>
+          <li>
+            <a href="/products/<%= product._id %>"><%= product.name %></a>
+          </li>
+        <% }) %>
+      </ol> 
+    </div>
+      </div>
+  </div>
+</div>

@@ -302,6 +302,37 @@ a {
   margin-right: 10px;
 }
 
+.profile #username {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-style: normal;
+  font-size: 1.7rem;
+  color: #999999;
+  text-align: center;
+  text-shadow: 2px 2px 3px #ccc;
+}
+
+.user_profile_info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#avatar {
+  margin-right: 200px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.contact_info {
+ margin-top: 40px; 
+}
+
+h5 {
+  margin-bottom: 0;
+  text-decoration: underline;
+}
+
 /**************** FOOTER **************/
 footer {
   border-top: 1px solid #ccc;

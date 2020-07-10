@@ -7,7 +7,7 @@
       <img src="<%= product.image %>" alt="<%= product.name %>">
       <p>
         <em>Submit by:  
-          <a href="#">
+          <a href="/users/<%= product.author.id %>">
             <strong><%= product.author.username %></strong>
           </a>
         </em>
