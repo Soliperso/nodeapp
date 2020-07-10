@@ -15,7 +15,7 @@ module.exports = {
         if (err) {
           res.redirect('back');
         } else {
-          if (product.author.id.equals(req.user._id)) {
+          if (product.author.id.equals(req.user._id) || req.user.isAdmin) {
             next();
           } else {
             res.redirect('back');
@@ -32,7 +32,7 @@ module.exports = {
         if (err) {
           res.redirect('back');
         } else {
-          if (comment.author.id.equals(req.user._id)) {
+          if (comment.author.id.equals(req.user._id) || req.user.isAdmin) {
             next();
           } else {
             res.redirect('back');
