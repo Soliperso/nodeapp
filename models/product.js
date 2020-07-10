@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
       ref: "Comment",
     },
   ],
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("Product", productSchema);

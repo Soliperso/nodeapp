@@ -5,7 +5,6 @@ const Product = require("../models/product");
 const { isLoggedIn } = require("../middleware/middleware");
 const { checkUserComment } = require("../middleware/middleware");
 
-const product = require("../models/product");
 
 // NEW - render the create a new comment form
 router.get("/products/:id/comments/new", isLoggedIn, (req, res) => {

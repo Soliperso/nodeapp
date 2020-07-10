@@ -7,6 +7,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const methodOverride = require("method-override");
+const flash = require("connect-flash");
 
 const app = express();
 
@@ -20,8 +21,9 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 app.use(methodOverride("_method"));
+app.use(flash());
 
-app.locals.moment = require("moment");
+
 
 // Connect mongoose to DB
 mongoose.connect("mongodb://localhost/eShop", {
@@ -53,6 +55,9 @@ passport.deserializeUser(User.deserializeUser());
 // Make req.user available to all routes
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error")
+  res.locals.success = req.flash("success")
+  app.locals.moment = require("moment");
   next();
 });
 

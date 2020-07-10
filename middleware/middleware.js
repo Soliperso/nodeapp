@@ -7,6 +7,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
+    req.flash('error', 'You need to be logged in!')
     res.redirect("/login");
   },
   checkUserProduct: (req, res, next) => {
@@ -40,7 +41,8 @@ module.exports = {
         }
       });
     } else {
+      req.flash('error', 'You need to be logged to do that!')
       res.redirect('back');
     }
-  }
+  },
   }

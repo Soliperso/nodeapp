@@ -4,11 +4,9 @@ const passport = require("passport");
 const User = require("../models/user");
 const Product = require("../models/product");
 
-
 router.get("/", (req, res) => {
-  res.render('landing')
+  res.render("landing");
 });
-
 
 // Register route
 router.get("/register", (req, res) => {
@@ -16,19 +14,19 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  const newUser = new User({ 
-    username: req.body.username, 
-    firstName: req.body.firstName, 
+  const newUser = new User({
+    username: req.body.username,
+    firstName: req.body.firstName,
     lastName: req.body.lastName,
-    email: req.body.email, 
-    avatar: req.body.avatar 
+    email: req.body.email,
+    avatar: req.body.avatar,
   });
-  if(req.body.adminCode === process.env.ADMIN_PASS) {
+  if (req.body.adminCode === process.env.ADMIN_PASS) {
     newUser.isAdmin = true;
   }
   User.register(newUser, req.body.password, (err, user) => {
     if (err) {
-      console.log(err);
+      req.flash('error', err.message)
       return res.render("register");
     }
     passport.authenticate("local")(req, res, function () {
@@ -54,24 +52,26 @@ router.post(
 // Logout Route
 router.get("/logout", (req, res) => {
   req.logout();
+  req.flash('success', 'Logged you out!')
   res.redirect("/products");
 });
 
-// User profile 
+// User profile
 router.get("/users/:id", (req, res) => {
   User.findById(req.params.id, (err, user) => {
     if (err) {
-      res.redirect('/products')
+      res.redirect("/products");
     }
-    Product.find({}).where('author.id').equals(user._id).exec((err, products) => {
-      if (err) {
-        res.redirect('/products')
-      }
-      res.render('users/show', { user, products })
-    })
-  })
-})
-
-
+    Product.find({})
+      .where("author.id")
+      .equals(user._id)
+      .exec((err, products) => {
+        if (err) {
+          res.redirect("/products");
+        }
+        res.render("users/show", { user, products });
+      });
+  });
+});
 
 module.exports = router;
